@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ItemTableViewController.swift
 //  CatchPrototype
 //
 //  Created by Mimi Chenyao on 4/12/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemViewController: UITableViewController {
+class ItemTableViewController: UITableViewController {
     
     var itemStore: ItemStore!
     
@@ -18,6 +18,12 @@ class ItemViewController: UITableViewController {
         tableView.rowHeight = 80
         
         setUpNavBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
     
     func setUpNavBar() {
@@ -46,7 +52,7 @@ class ItemViewController: UITableViewController {
     }
     
     @objc func addItem(_ sender: UIBarButtonItem) {
-        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
+    self.navigationController?.pushViewController(AddItemViewController(), animated: true)
     }
     
     // MARK: Table view delegate methods
