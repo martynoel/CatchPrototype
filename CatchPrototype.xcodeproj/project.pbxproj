@@ -17,6 +17,7 @@
 		39859385207FB98700DA43A5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39859384207FB98700DA43A5 /* Item.swift */; };
 		39859387207FBA1A00DA43A5 /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39859386207FBA1A00DA43A5 /* ItemStore.swift */; };
 		39E00C5E20802B6100DA183D /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E00C5D20802B6100DA183D /* AddItemViewController.swift */; };
+		39E00C602080D17E00DA183D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E00C5F2080D17E00DA183D /* ItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		39859384207FB98700DA43A5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		39859386207FBA1A00DA43A5 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		39E00C5D20802B6100DA183D /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		39E00C5F2080D17E00DA183D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				39859384207FB98700DA43A5 /* Item.swift */,
 				39859386207FBA1A00DA43A5 /* ItemStore.swift */,
 				39E00C5D20802B6100DA183D /* AddItemViewController.swift */,
+				39E00C5F2080D17E00DA183D /* ItemDetailViewController.swift */,
 				3985935D207FB82700DA43A5 /* Assets.xcassets */,
 				3985935F207FB82800DA43A5 /* LaunchScreen.storyboard */,
 				39859362207FB82800DA43A5 /* Info.plist */,
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39859359207FB82700DA43A5 /* ItemViewController.swift in Sources */,
+				39E00C602080D17E00DA183D /* ItemDetailViewController.swift in Sources */,
 				39859385207FB98700DA43A5 /* Item.swift in Sources */,
 				39E00C5E20802B6100DA183D /* AddItemViewController.swift in Sources */,
 				39859387207FBA1A00DA43A5 /* ItemStore.swift in Sources */,

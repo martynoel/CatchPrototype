@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailController.swift
 //  CatchPrototype
 //
 //  Created by Mimi Chenyao on 4/12/18.
@@ -8,17 +8,7 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController {
-    
-    let unclickedColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-    let clickedColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
-    
-    // Describes states of buttons so that they can change color when pressed
-    // 0 = unclicked
-    // 1 = clicked
-    var addItemButtonState = 0
-    var changePhotoButtonState = 0
-    var cancelButtonState = 0
+class ItemDetailViewController: UIViewController {
     
     let imageButton: UIButton = {
         
@@ -48,7 +38,7 @@ class AddItemViewController: UIViewController {
         
         let nameTextField = UITextField()
         nameTextField.placeholder = "What's your item called?"
-    nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 10), for: .horizontal)
+        nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 10), for: .horizontal)
         
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(nameTextField)
@@ -58,11 +48,11 @@ class AddItemViewController: UIViewController {
         return stackView
     }()
     
-    let addItemButton: UIButton = {
+    let updateTimeLastWornButton: UIButton = {
         
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        button.setTitle("Add Item", for: .normal)
+        button.setTitle("Update Date Last Worn", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -71,7 +61,7 @@ class AddItemViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         
-        button.addTarget(self, action: #selector(addItemButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(updateTimeLastWornButtonPressed), for: .touchUpInside)
         
         return button
     }()
@@ -143,10 +133,10 @@ class AddItemViewController: UIViewController {
     }
     
     func setUpImageButton() {
-
+        
         imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-//        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        //        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
         imageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
     }
     
@@ -158,12 +148,12 @@ class AddItemViewController: UIViewController {
     
     func setUpButtonAndTextFieldStackView() {
         
-buttonsAndTextFieldStackView.addArrangedSubview(addItemButton)
-    buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(updateTimeLastWornButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -35).isActive = true
     }
     
@@ -173,39 +163,16 @@ buttonsAndTextFieldStackView.addArrangedSubview(addItemButton)
         cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 10).isActive = true
     }
     
-    @objc func addItemButtonPressed() {
-        
-        if addItemButtonState == 0 {
-            addItemButtonState = 1
-            addItemButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
-        }
-        else {
-            addItemButtonState = 0
-            addItemButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        }
+    @objc func updateTimeLastWornButtonPressed() {
+        print("Update time last worn button pressed")
     }
     
     @objc func changePhotoButtonPressed() {
-        
-        if changePhotoButtonState == 0 {
-            changePhotoButtonState = 1
-            changePhotoButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
-        }
-        else {
-            changePhotoButtonState = 0
-            changePhotoButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        }
+        print("Change photo button pressed")
     }
     
     @objc func cancelButtonPressed() {
-        
-        if cancelButtonState == 0 {
-            cancelButtonState = 1
-            cancelButton.setTitleColor(UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1), for: .normal)
-        }
-        else {
-            cancelButtonState = 0
-            cancelButton.setTitleColor(UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1), for: .normal)
-        }
+        print("Cancel button pressed")
     }
 }
+
