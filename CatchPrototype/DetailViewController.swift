@@ -10,16 +10,20 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let imageView: UIImageView = {
+    let imageButton: UIButton = {
         
         let itemImage = UIImage(named: "fadedCatchLogo_frame")
-        let image = UIImageView(image: itemImage!)
+        let button = UIButton(type: UIButtonType.custom)
+        button.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
+        button.setImage(itemImage, for: .normal)
         
-        image.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
+        button.addTarget(self, action: #selector(changePhotoButtonPressed), for: .touchUpInside)
         
-        image.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         
-        return image
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
     }()
     
     let nameStackView: UIStackView = {
@@ -113,12 +117,12 @@ class DetailViewController: UIViewController {
         
         self.navigationItem.title = "Individual Item"
         
-        view.addSubview(imageView)
+        view.addSubview(imageButton)
         view.addSubview(nameStackView)
         view.addSubview(buttonsAndTextFieldStackView)
         view.addSubview(cancelButton)
         
-        setUpImageView()
+        setUpImageButton()
         setUpNameStackView()
         setUpButtonAndTextFieldStackView()
         setUpCancelButton()
@@ -128,17 +132,17 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    func setUpImageView() {
-        
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 350).isActive = true
+    func setUpImageButton() {
+
+        imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+//        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        imageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
     }
     
     func setUpNameStackView() {
         
-        nameStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
+        nameStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 30).isActive = true
         nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
     }
     
@@ -147,7 +151,7 @@ class DetailViewController: UIViewController {
 buttonsAndTextFieldStackView.addArrangedSubview(updateTimeLastWornButton)
     buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
-        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 30).isActive = true
+        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
     buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -35).isActive = true
@@ -156,7 +160,7 @@ buttonsAndTextFieldStackView.addArrangedSubview(updateTimeLastWornButton)
     func setUpCancelButton() {
         
         cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 15).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 10).isActive = true
     }
     
     @objc func updateTimeLastWornButtonPressed() {
