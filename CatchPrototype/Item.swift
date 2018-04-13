@@ -14,6 +14,7 @@ class Item: NSObject {
     var dateLastWornString: String
     
     init(name: String) {
+        
         self.name = name
         
         let dateAdded = Date()

@@ -68,7 +68,6 @@ class ItemDetailViewController: UIViewController {
     let dateLastWornLabel: UILabel = {
         
         let label = UILabel()
-        label.text = "Last date worn:"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         
         return label
@@ -87,7 +86,7 @@ class ItemDetailViewController: UIViewController {
         
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        button.setTitle("Update Last Date Worn", for: .normal)
+        button.setTitle("Update Date Last Worn", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -152,6 +151,8 @@ class ItemDetailViewController: UIViewController {
         
         self.navigationItem.title = "Add New Item"
         
+        dateLastWornLabel.text = "Date last worn: \(self.item.dateLastWornString)"
+        
         view.addSubview(imageButton)
         view.addSubview(nameStackView)
         view.addSubview(buttonsAndTextFieldStackView)
@@ -172,9 +173,13 @@ class ItemDetailViewController: UIViewController {
         dateLastWornLabel.text = "Date Last Worn: \(item.dateLastWornString)"
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        // Save changes to item (superficially for now)
+        item.name = nameTextField.text ?? "No item name"
+    }
     
     func setUpImageButton() {
         
@@ -213,14 +218,24 @@ class ItemDetailViewController: UIViewController {
     
     @objc func updateDateLastWornButtonPressed() {
         
+        let todaysDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        // Update visual indicators
         if updateDateLastWornButtonState == 0 {
             updateDateLastWornButtonState = 1
             updateDateLastWornButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
         }
+        
         else {
             updateDateLastWornButtonState = 0
             updateDateLastWornButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
         }
+        
+        // Update date
+        item.dateLastWornString = dateFormatter.string(from: todaysDate)
+        dateLastWornLabel.text = item.dateLastWornString
+        dateLastWornLabel.textColor = UIColor.black
     }
     
     @objc func changePhotoButtonPressed() {
