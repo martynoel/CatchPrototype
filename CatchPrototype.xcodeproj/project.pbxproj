@@ -16,7 +16,7 @@
 		39859377207FB82800DA43A5 /* CatchPrototypeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39859376207FB82800DA43A5 /* CatchPrototypeUITests.swift */; };
 		39859385207FB98700DA43A5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39859384207FB98700DA43A5 /* Item.swift */; };
 		39859387207FBA1A00DA43A5 /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39859386207FBA1A00DA43A5 /* ItemStore.swift */; };
-		39E00C5E20802B6100DA183D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E00C5D20802B6100DA183D /* DetailViewController.swift */; };
+		39E00C5E20802B6100DA183D /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E00C5D20802B6100DA183D /* AddItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		39859378207FB82800DA43A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39859384207FB98700DA43A5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		39859386207FBA1A00DA43A5 /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
-		39E00C5D20802B6100DA183D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		39E00C5D20802B6100DA183D /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 				39629792207FFB6200A70333 /* ItemCell.swift */,
 				39859384207FB98700DA43A5 /* Item.swift */,
 				39859386207FBA1A00DA43A5 /* ItemStore.swift */,
-				39E00C5D20802B6100DA183D /* DetailViewController.swift */,
+				39E00C5D20802B6100DA183D /* AddItemViewController.swift */,
 				3985935D207FB82700DA43A5 /* Assets.xcassets */,
 				3985935F207FB82800DA43A5 /* LaunchScreen.storyboard */,
 				39859362207FB82800DA43A5 /* Info.plist */,
@@ -269,7 +269,7 @@
 			files = (
 				39859359207FB82700DA43A5 /* ItemViewController.swift in Sources */,
 				39859385207FB98700DA43A5 /* Item.swift in Sources */,
-				39E00C5E20802B6100DA183D /* DetailViewController.swift in Sources */,
+				39E00C5E20802B6100DA183D /* AddItemViewController.swift in Sources */,
 				39859387207FBA1A00DA43A5 /* ItemStore.swift in Sources */,
 				39859357207FB82700DA43A5 /* AppDelegate.swift in Sources */,
 				39629793207FFB6200A70333 /* ItemCell.swift in Sources */,

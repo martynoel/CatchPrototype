@@ -1,5 +1,5 @@
 //
-//  ItemDetailViewController.swift
+//  AddItemViewController.swift
 //  CatchPrototype
 //
 //  Created by Mimi Chenyao on 4/12/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class AddItemViewController: UIViewController {
     
     let imageButton: UIButton = {
         
@@ -115,7 +115,7 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.navigationItem.title = "Individual Item"
+        self.navigationItem.title = "Add New Item"
         
         view.addSubview(imageButton)
         view.addSubview(nameStackView)

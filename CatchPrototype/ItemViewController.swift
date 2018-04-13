@@ -27,7 +27,7 @@ class ItemViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = editButtonItem
         
         // Create and set right bar button item to "add"
-        let addItemButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
+        let addItemButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addRandomItem))
         self.navigationItem.rightBarButtonItem = addItemButton
     }
 
@@ -46,7 +46,7 @@ class ItemViewController: UITableViewController {
     }
     
     @objc func addItem(_ sender: UIBarButtonItem) {
-        self.navigationController?.pushViewController(DetailViewController(), animated: true)
+        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
     }
     
     // MARK: Table view delegate methods
@@ -72,8 +72,16 @@ class ItemViewController: UITableViewController {
         return cell
     }
     
+    // TODO: Get actual item
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // what happens when it's selected?
+        
+        // Figure out which row was just tapped
+        if let row = tableView.indexPathForSelectedRow?.row {
+            
+            // Get item associated with this row and pass it along
+            let item = itemStore.allItems[row]
+        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
+        }
     }
     
     // MARK: Table View data source methods
