@@ -9,21 +9,23 @@
 import UIKit
 
 class Item: NSObject {
+    
     var name: String
-    var dateAddedString: String
+    let dateAddedString: String
+    var dateLastWorn: Date
     var dateLastWornString: String
     
     init(name: String) {
         
         self.name = name
         
-        let dateAdded = Date()
-        var dateLastWorn = Date()
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.timeStyle = .short
         dateFormatter.locale = Locale(identifier: "en_US")
+                
+        let dateAdded = Date()
+        self.dateLastWorn = Date()
         
         self.dateAddedString = dateFormatter.string(from: dateAdded)
         self.dateLastWornString = dateFormatter.string(from: dateLastWorn)
@@ -57,5 +59,16 @@ class Item: NSObject {
         else {
             self.init(name: "")
         }
+    }
+    
+    func updateDateLastWorn() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        self.dateLastWorn = Date()
+        self.dateLastWornString = dateFormatter.string(from: dateLastWorn)
     }
 }
