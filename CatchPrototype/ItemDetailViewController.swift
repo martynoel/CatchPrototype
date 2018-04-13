@@ -1,5 +1,5 @@
 //
-//  ItemDetailController.swift
+//  ItemDetailViewController.swift
 //  CatchPrototype
 //
 //  Created by Mimi Chenyao on 4/12/18.
@@ -9,6 +9,13 @@
 import UIKit
 
 class ItemDetailViewController: UIViewController {
+    
+    // Describes states of buttons so that they can change color when pressed
+    // 0 = unclicked
+    // 1 = clicked
+    var updateLastDateWornButtonState = 0
+    var changePhotoButtonState = 0
+    var cancelButtonState = 0
     
     let imageButton: UIButton = {
         
@@ -48,11 +55,11 @@ class ItemDetailViewController: UIViewController {
         return stackView
     }()
     
-    let updateTimeLastWornButton: UIButton = {
+    let updateLastDateWornButton: UIButton = {
         
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        button.setTitle("Update Date Last Worn", for: .normal)
+        button.setTitle("Update Last Date Worn", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -61,7 +68,7 @@ class ItemDetailViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         
-        button.addTarget(self, action: #selector(updateTimeLastWornButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(updateLastDateWornButtonPressed), for: .touchUpInside)
         
         return button
     }()
@@ -143,18 +150,18 @@ class ItemDetailViewController: UIViewController {
     func setUpNameStackView() {
         
         nameStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 30).isActive = true
-        nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
+        nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35).isActive = true
     }
     
     func setUpButtonAndTextFieldStackView() {
         
-        buttonsAndTextFieldStackView.addArrangedSubview(updateTimeLastWornButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(updateLastDateWornButton)
         buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -35).isActive = true
+        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
     func setUpCancelButton() {
@@ -163,16 +170,39 @@ class ItemDetailViewController: UIViewController {
         cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 10).isActive = true
     }
     
-    @objc func updateTimeLastWornButtonPressed() {
-        print("Update time last worn button pressed")
+    @objc func updateLastDateWornButtonPressed() {
+        
+        if updateLastDateWornButtonState == 0 {
+            updateLastDateWornButtonState = 1
+            updateLastDateWornButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
+        }
+        else {
+            updateLastDateWornButtonState = 0
+            updateLastDateWornButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
+        }
     }
     
     @objc func changePhotoButtonPressed() {
-        print("Change photo button pressed")
+        
+        if changePhotoButtonState == 0 {
+            changePhotoButtonState = 1
+            changePhotoButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
+        }
+        else {
+            changePhotoButtonState = 0
+            changePhotoButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
+        }
     }
     
     @objc func cancelButtonPressed() {
-        print("Cancel button pressed")
+        
+        if cancelButtonState == 0 {
+            cancelButtonState = 1
+            cancelButton.setTitleColor(UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1), for: .normal)
+        }
+        else {
+            cancelButtonState = 0
+            cancelButton.setTitleColor(UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1), for: .normal)
+        }
     }
 }
-

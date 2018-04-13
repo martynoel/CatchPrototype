@@ -11,7 +11,7 @@ import UIKit
 class ItemViewController: UITableViewController {
     
     var itemStore: ItemStore!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +30,7 @@ class ItemViewController: UITableViewController {
         let addItemButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addRandomItem))
         self.navigationItem.rightBarButtonItem = addItemButton
     }
-
+    
     @objc func addRandomItem(_ sender: UIBarButtonItem) {
         
         // Create a new item and add it to the store first
@@ -80,7 +80,8 @@ class ItemViewController: UITableViewController {
             
             // Get item associated with this row and pass it along
             let item = itemStore.allItems[row]
-        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
+            //        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
+            self.navigationController?.pushViewController(ItemDetailViewController(), animated: true)
         }
     }
     

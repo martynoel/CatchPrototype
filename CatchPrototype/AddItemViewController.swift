@@ -48,7 +48,7 @@ class AddItemViewController: UIViewController {
         
         let nameTextField = UITextField()
         nameTextField.placeholder = "What's your item called?"
-    nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 10), for: .horizontal)
+        nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 10), for: .horizontal)
         
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(nameTextField)
@@ -143,28 +143,28 @@ class AddItemViewController: UIViewController {
     }
     
     func setUpImageButton() {
-
+        
         imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-//        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        //        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
         imageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
     }
     
     func setUpNameStackView() {
         
         nameStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 30).isActive = true
-        nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
+        nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35).isActive = true
     }
     
     func setUpButtonAndTextFieldStackView() {
         
-buttonsAndTextFieldStackView.addArrangedSubview(addItemButton)
-    buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(updateLastDateWornButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-    buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -35).isActive = true
+        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
     func setUpCancelButton() {
