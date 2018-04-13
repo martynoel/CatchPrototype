@@ -37,8 +37,8 @@ class ItemCell: UITableViewCell {
         
         itemImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        itemImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        itemImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        itemImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        itemImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         
         // Item name label
         itemNameLabel = UILabel()

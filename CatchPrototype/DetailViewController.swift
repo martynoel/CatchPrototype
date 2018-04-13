@@ -15,6 +15,8 @@ class DetailViewController: UIViewController {
         let itemImage = UIImage(named: "fadedCatchLogo_frame")
         let image = UIImageView(image: itemImage!)
         
+        image.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
+        
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
@@ -32,7 +34,7 @@ class DetailViewController: UIViewController {
         
         let nameTextField = UITextField()
         nameTextField.placeholder = "What's your item called?"
-    nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .horizontal)
+    nameTextField.setContentHuggingPriority(UILayoutPriority(rawValue: 10), for: .horizontal)
         
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(nameTextField)
@@ -78,6 +80,18 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    let buttonsAndTextFieldStackView: UIStackView = {
+        
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10.0
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
     let cancelButton: UIButton = {
         
         let button = UIButton()
@@ -101,14 +115,12 @@ class DetailViewController: UIViewController {
         
         view.addSubview(imageView)
         view.addSubview(nameStackView)
-        view.addSubview(updateTimeLastWornButton)
-        view.addSubview(changePhotoButton)
+        view.addSubview(buttonsAndTextFieldStackView)
         view.addSubview(cancelButton)
         
         setUpImageView()
         setUpNameStackView()
-        setUpUpdateTimeLastWornButton()
-        setUpChangePhotoButton()
+        setUpButtonAndTextFieldStackView()
         setUpCancelButton()
     }
     
@@ -118,40 +130,33 @@ class DetailViewController: UIViewController {
     
     func setUpImageView() {
         
-        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 85).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 350).isActive = true
     }
     
     func setUpNameStackView() {
         
-        nameStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nameStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15).isActive = true
-        nameStackView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        nameStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -30).isActive = true
+        nameStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
+        nameStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
     }
     
-    func setUpUpdateTimeLastWornButton() {
+    func setUpButtonAndTextFieldStackView() {
         
-        updateTimeLastWornButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        updateTimeLastWornButton.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
-        updateTimeLastWornButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        updateTimeLastWornButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
-    }
-    
-    func setUpChangePhotoButton() {
+buttonsAndTextFieldStackView.addArrangedSubview(updateTimeLastWornButton)
+    buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
-        changePhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        changePhotoButton.topAnchor.constraint(equalTo: updateTimeLastWornButton.bottomAnchor, constant: 15).isActive = true
-        changePhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        changePhotoButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
+        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 30).isActive = true
+        buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+    buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -35).isActive = true
     }
     
     func setUpCancelButton() {
         
-        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 8).isActive = true
+        cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 15).isActive = true
     }
     
     @objc func updateTimeLastWornButtonPressed() {
@@ -166,4 +171,3 @@ class DetailViewController: UIViewController {
         print("Cancel button pressed")
     }
 }
-
