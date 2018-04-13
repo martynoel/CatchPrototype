@@ -52,6 +52,9 @@ class DetailViewController: UIViewController {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
+        
         button.addTarget(self, action: #selector(updateTimeLastWornButtonPressed), for: .touchUpInside)
         
         return button
@@ -66,6 +69,9 @@ class DetailViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
         
         button.addTarget(self, action: #selector(changePhotoButtonPressed), for: .touchUpInside)
         
@@ -88,7 +94,10 @@ class DetailViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.navigationItem.title = "Individual Item"
         
         view.addSubview(imageView)
         view.addSubview(nameStackView)
@@ -142,7 +151,7 @@ class DetailViewController: UIViewController {
     func setUpCancelButton() {
         
         cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 10).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 8).isActive = true
     }
     
     @objc func updateTimeLastWornButtonPressed() {
