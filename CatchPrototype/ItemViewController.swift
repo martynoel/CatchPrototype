@@ -72,7 +72,7 @@ class ItemViewController: UITableViewController {
         return cell
     }
     
-    // TODO: Get actual item
+    // Select an item row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // Figure out which row was just tapped
@@ -80,8 +80,9 @@ class ItemViewController: UITableViewController {
             
             // Get item associated with this row and pass it along
             let item = itemStore.allItems[row]
-            //        self.navigationController?.pushViewController(AddItemViewController(), animated: true)
-            self.navigationController?.pushViewController(ItemDetailViewController(), animated: true)
+            let destination = ItemDetailViewController()
+            destination.item = item // getting the item
+            self.navigationController?.pushViewController(destination, animated: true)
         }
     }
     

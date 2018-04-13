@@ -158,7 +158,7 @@ class AddItemViewController: UIViewController {
     
     func setUpButtonAndTextFieldStackView() {
         
-        buttonsAndTextFieldStackView.addArrangedSubview(updateLastDateWornButton)
+        buttonsAndTextFieldStackView.addArrangedSubview(addItemButton)
         buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true

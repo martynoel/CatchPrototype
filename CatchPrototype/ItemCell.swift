@@ -14,7 +14,7 @@ class ItemCell: UITableViewCell {
     var itemImageView: UIImageView!
     var itemNameLabel: UILabel!
     var dateLastWornLabel: UILabel!
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
     }
@@ -59,7 +59,7 @@ class ItemCell: UITableViewCell {
         dateLastWornLabel.text = "Date last worn"
         dateLastWornLabel.lineBreakMode = .byWordWrapping
         dateLastWornLabel.numberOfLines = 0
-
+        
         contentView.addSubview(dateLastWornLabel)
         
         dateLastWornLabel.translatesAutoresizingMaskIntoConstraints = false

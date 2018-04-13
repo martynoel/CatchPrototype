@@ -17,7 +17,7 @@ class Item: NSObject {
         self.name = name
         
         let dateAdded = Date()
-        let dateLastWorn = Date()
+        var dateLastWorn = Date()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -48,7 +48,7 @@ class Item: NSObject {
             // Creates random dress name from color and brand
             let randomName = "\(randomColor) \(randomBrand) dress"
             
-//            let name = "Hello, my name is Mimi and I'm looking for a super long string of text. Haha hey."
+            //            let name = "Hello, my name is Mimi and I'm looking for a super long string of text. Haha hey."
             
             self.init(name: randomName)
         }
