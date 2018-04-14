@@ -8,14 +8,23 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController, UITextFieldDelegate {
+class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    // MARK: Properties
+    
+    let itemStore = ItemStore.sharedInstance
+    var item: Item!
+    var itemName: String!
+    var dateAddedString = "<DATE>"
+    var dateLastWornString = "<DATE>"
     
     // Describes states of buttons so that they can change color when pressed
     // 0 = unclicked
     // 1 = clicked
-    var updateDateLastWornButtonState = 0
     var changePhotoButtonState = 0
     var cancelButtonState = 0
+    
+    // MARK: View instantiations by closure
     
     let imageButton: UIButton = {
         
@@ -25,7 +34,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         button.setImage(itemImage, for: .normal)
         
         button.addTarget(self, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
-        
         button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -52,20 +60,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-//    let nameStackView: UIStackView = {
-//        let stackView = UIStackView()
-//
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fillProportionally
-//
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        stackView.addArrangedSubview(nameLabel)
-//        stackView.addArrangedSubview(nameTextField)
-//
-//        return stackView
-//    }()
-    
     var nameStackView = UIStackView()
     
     let buttonsAndTextFieldStackView: UIStackView = {
@@ -83,7 +77,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     let dateAddedLabel: UILabel = {
         
         let label = UILabel()
-        label.text = "Date Added:"
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -95,29 +88,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.text = "// TODO: Date Last Worn:"
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         
         return label
-    }()
-    
-    let updateDateLastWornButton: UIButton = {
-        
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        button.setTitle("Update Date Last Worn", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.layer.cornerRadius = 5
-        button.layer.masksToBounds = true
-        
-        button.addTarget(self, action: #selector(updateDateLastWornButtonPressed), for: .touchUpInside)
-        
-        return button
     }()
     
     let changePhotoButton: UIButton = {
@@ -127,6 +101,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Change Photo", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -153,6 +129,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    // MARK: View lifecycle methods
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -178,23 +156,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         // Clear first responder when user presses "back"
         view.endEditing(true)
         
-        // TODO: Replace with actual item
-        var itemName = nameTextField.text ?? "No item name"
+        // TODO: Get item image too
+        itemName = itemName ?? "New Item"
     }
     
-    // Dismisses first responder when user taps Return key on keyboard
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
-        return true
-    }
-    
-    // Dismisses first responder when user taps anywhere on screen
-    @objc func backgroundTapped(_ sender: UITapGestureRecognizer) {
-        
-        self.view.endEditing(true)
-    }
+    // MARK: View setup methods
     
     func setUpNavBar() {
         self.navigationItem.title = "Add Item"
@@ -216,7 +182,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         nameStackView = UIStackView()
         
         nameStackView.axis = .horizontal
-        nameStackView.distribution = .fillProportionally
+        nameStackView.distribution = .fill
         
         nameStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -224,14 +190,30 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         nameStackView.addArrangedSubview(nameTextField)
     }
     
+    func setUpDateInfo() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        let dateAdded = Date()
+        let dateLastWorn = Date()
+        
+        dateAddedString = dateFormatter.string(from: dateAdded)
+        dateLastWornString = dateFormatter.string(from: dateLastWorn)
+    }
+    
     func setUpButtonAndTextFieldStackView() {
         
+        setUpDateInfo()
         setUpNameStackView()
         
         buttonsAndTextFieldStackView.addArrangedSubview(nameStackView)
         buttonsAndTextFieldStackView.addArrangedSubview(dateLastWornLabel)
         buttonsAndTextFieldStackView.addArrangedSubview(dateAddedLabel)
-        buttonsAndTextFieldStackView.addArrangedSubview(updateDateLastWornButton)
+        
+        dateLastWornLabel.text = "Date Last Worn: \(dateLastWornString)"
+        dateAddedLabel.text = "Date Added: \(dateAddedString)"
         buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 20).isActive = true
@@ -247,7 +229,51 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func addPhotoButtonPressed() {
-        print("added photo")
+        let alertController = UIAlertController(title: "Choose Photo Source", message: nil, preferredStyle: .actionSheet)
+        
+        // Check if device has camera before presenting camera as an option
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let chooseCameraAction = UIAlertAction(title: "Camera", style: .default) { (_) in
+                
+                let imagePicker = self.imagePicker(for: .camera)
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            alertController.addAction(chooseCameraAction)
+        }
+        
+        let choosePhotoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
+            
+            let imagePicker = self.imagePicker(for: .photoLibrary)
+            
+            // Apple wants photo library to be presented in popover, so be it ...
+            if let popoverController = alertController.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        alertController.addAction(choosePhotoLibraryAction)
+        
+        let chooseCancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(chooseCancelAction)
+        
+        // For iPad: this is where notifications pop up
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: Action methods
+    
+    // Dismisses first responder when user taps anywhere on screen
+    @objc func backgroundTapped(_ sender: UITapGestureRecognizer) {
+        
+        self.view.endEditing(true)
     }
     
     @objc func changePhotoButtonPressed() {
@@ -260,23 +286,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
             changePhotoButtonState = 0
             changePhotoButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
         }
-    }
-    
-    @objc func updateDateLastWornButtonPressed() {
         
-        // Update date
-//        item.updateDateLastWorn()
-//        dateLastWornLabel.text = "Date Last Worn: \(item.dateLastWornString)"
-        
-        // Update visual indicators
-        if updateDateLastWornButtonState == 0 {
-            updateDateLastWornButtonState = 1
-            updateDateLastWornButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 102/255, alpha: 1)
-        }
-        else {
-            updateDateLastWornButtonState = 0
-            updateDateLastWornButton.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
-        }
+        addPhotoButtonPressed()
     }
     
     @objc func cancelButtonPressed() {
@@ -296,17 +307,63 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let saveAlert = UIAlertController(title: "Save Item?", message: "Are you sure you want to save this item? You can always edit it later.", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (saveItem) in
             
-            // TODO: Item-saving code here
-            print("Item saved")
+            // Saving an item
+            if self.nameTextField.text != nil {
+               self.itemName = self.nameTextField.text
+            }
+            else {
+                self.itemName = "New Item"
+            }
+            
+            self.item = self.itemStore.createItem(called: self.itemName)
+            self.navigationController?.popViewController(animated: true)
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (clickCancel) in
             
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
         
         saveAlert.addAction(saveAction)
         saveAlert.addAction(cancelAction)
         
         self.present(saveAlert, animated: true, completion: nil)
+    }
+    
+    // MARK: Delegate methods
+    
+    // Text field delegate
+    
+    // Dismisses first responder when user taps Return key on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    // Image picker delegate
+    
+    // Selects source of image picker
+    func imagePicker(for sourceType: UIImagePickerControllerSourceType) -> UIImagePickerController {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        
+        return imagePicker
+    }
+    
+    // Called after photo has been selected
+    // Adds photo to image view
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // Get image & put on image button
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        imageButton.setImage(image, for: .normal)
+        
+        // Dismiss image picker controller
+        dismiss(animated: true, completion: nil)
     }
 }
