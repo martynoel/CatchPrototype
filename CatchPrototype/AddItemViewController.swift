@@ -5,7 +5,6 @@
 //  Created by Mimi Chenyao on 4/12/18.
 //  Copyright © 2018 Mimi Chenyao. All rights reserved.
 //
-
 import UIKit
 
 class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -45,21 +44,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         return content
     }()
     
-    let imageButton: UIButton = {
+    let itemImageView: UIImageView = {
         
         let itemImage = UIImage(named: "fadedCatchLogo_frame")
-        let button = UIButton(type: UIButtonType.custom)
-        button.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-        button.setImage(itemImage, for: .normal)
-        button.setBackgroundImage(nil, for: .normal)
-        button.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+        let imageView = UIImageView(image: itemImage!)
         
-        button.addTarget(self, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
-        button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
+        return imageView
     }()
     
     let nameLabel: UILabel = {
@@ -197,14 +189,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func setUpContentView() {
         
-        contentView.addSubview(imageButton)
+        contentView.addSubview(itemImageView)
         contentView.addSubview(nameStackView)
         contentView.addSubview(dateLastWornLabel)
         contentView.addSubview(dateAddedLabel)
         contentView.addSubview(changePhotoButton)
         contentView.addSubview(cancelButton)
         
-        setUpImageButton()
+        setUpItemImageView()
         setUpNameStackView()
         setUpDateLastWornLabel()
         setUpDateAddedLabel()
@@ -222,42 +214,43 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func setUpNavBar() {
         self.navigationItem.title = "Add Item"
-    
+        
         // Create and set right bar button item to "save"
         let saveItemButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveItem))
         self.navigationItem.rightBarButtonItem = saveItemButton
     }
     
-    func setUpImageButton() {
+    func setUpItemImageView() {
         
-        imageButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        imageButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        imageButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        itemImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        itemImageView.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        itemImageView.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        itemImageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        
     }
     
     func setUpNameStackView() {
-
+        
         nameStackView.addArrangedSubview(nameLabel)
         nameStackView.addArrangedSubview(nameTextField)
-
-        nameStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 30).isActive = true
+        
+        nameStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor, constant: 30).isActive = true
         nameStackView.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         nameStackView.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: 15).isActive = true
     }
-
+    
     func setUpDateLastWornLabel() {
-
+        
         dateLastWornLabel.text = "Date Last Worn: \(dateLastWornString)"
         
         dateLastWornLabel.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 30).isActive = true
-        dateLastWornLabel.leadingAnchor.constraint(equalTo: imageButton.leadingAnchor).isActive = true
+        dateLastWornLabel.leadingAnchor.constraint(equalTo: itemImageView.leadingAnchor).isActive = true
     }
-
+    
     func setUpDateAddedLabel() {
         
         dateAddedLabel.text = "Date Added: \(dateAddedString)"
-
+        
         dateAddedLabel.topAnchor.constraint(equalTo: dateLastWornLabel.bottomAnchor, constant: 10).isActive = true
         dateAddedLabel.leadingAnchor.constraint(equalTo: dateLastWornLabel.leadingAnchor).isActive = true
     }
@@ -269,9 +262,9 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         changePhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         changePhotoButton.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
-
+    
     func setUpCancelButton() {
-
+        
         cancelButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
         cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 7).isActive = true
     }
@@ -357,7 +350,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
             
             // Saving an item
             if self.nameTextField.text != nil {
-               self.itemName = self.nameTextField.text
+                self.itemName = self.nameTextField.text
             }
             else {
                 self.itemName = "New Item"
@@ -410,20 +403,15 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         // Get image & put on image button
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        itemImage = image
         
         // Resize images properly
         let resizedImage = resizeImage(image: image)
         itemImage = resizedImage
         
-        imageButton.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-        imageButton.setImage(resizedImage, for: .normal)
-        imageButton.setBackgroundImage(nil, for: .normal)
+        itemImageView.image = resizedImage
         
         // Dismiss image picker controller
         dismiss(animated: true, completion: nil)
-        
-        
     }
     
     // MARK: Helper methods
