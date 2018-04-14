@@ -27,6 +27,24 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     // MARK: View instantiations by closure
     
+    let scrollView: UIScrollView = {
+        
+        let scrolly = UIScrollView()
+        
+        scrolly.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrolly
+    }()
+    
+    let contentView: UIView = {
+        
+        let content = UIView()
+        
+        content.translatesAutoresizingMaskIntoConstraints = false
+        
+        return content
+    }()
+    
     let imageButton: UIButton = {
         
         let itemImage = UIImage(named: "fadedCatchLogo_frame")
@@ -141,15 +159,20 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         setUpNavBar()
         
         view.backgroundColor = .white
+        
         nameTextField.delegate = self
         
-        view.addSubview(imageButton)
-        view.addSubview(buttonsAndTextFieldStackView)
-        view.addSubview(cancelButton)
+        view.addSubview(scrollView)
         
-        setUpImageButton()
-        setUpButtonAndTextFieldStackView()
-        setUpCancelButton()
+        setUpScrollView()
+        
+//        view.addSubview(imageButton)
+//        view.addSubview(buttonsAndTextFieldStackView)
+//        view.addSubview(cancelButton)
+//
+//        setUpImageButton()
+//        setUpButtonAndTextFieldStackView()
+//        setUpCancelButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -165,6 +188,37 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     // MARK: View setup methods
     
+    func setUpScrollView() {
+        
+        scrollView.addSubview(contentView)
+        
+        setUpContentView()
+        
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    func setUpContentView() {
+        
+        contentView.addSubview(imageButton)
+        contentView.addSubview(buttonsAndTextFieldStackView)
+        contentView.addSubview(cancelButton)
+        
+        setUpImageButton()
+        setUpButtonAndTextFieldStackView()
+        setUpCancelButton()
+        
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        
+        contentView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+    }
+    
     func setUpNavBar() {
         self.navigationItem.title = "Add Item"
     
@@ -175,7 +229,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func setUpImageButton() {
         
-        imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        imageButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         imageButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
         imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
@@ -221,9 +275,9 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 10).isActive = true
-        buttonsAndTextFieldStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
-        buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
+        buttonsAndTextFieldStackView.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: 10)
+        buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
     func setUpCancelButton() {
