@@ -58,7 +58,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         let label = UILabel()
         label.text = "Name:"
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         
         return label
     }()
@@ -115,7 +115,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         button.backgroundColor = UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1)
         button.setTitle("Change Photo", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         
         button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         
@@ -259,7 +259,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         changePhotoButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
         changePhotoButton.topAnchor.constraint(equalTo: dateAddedLabel.bottomAnchor, constant: 20).isActive = true
         changePhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        changePhotoButton.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
+        changePhotoButton.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: -60).isActive = true
     }
     
     func setUpCancelButton() {
