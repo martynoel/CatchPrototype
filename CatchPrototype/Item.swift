@@ -10,13 +10,15 @@ import UIKit
 
 class Item: NSObject {
     
+    var image: UIImage
     var name: String
     let dateAddedString: String
     var dateLastWorn: Date
     var dateLastWornString: String
     
-    init(name: String) {
+    init(called name: String, with image: UIImage) {
         
+        self.image = image
         self.name = name
         
         let dateFormatter = DateFormatter()
@@ -34,6 +36,8 @@ class Item: NSObject {
     }
     
     convenience init(random: Bool = false) {
+        
+        let image = UIImage(named: "catchLogo")
         
         if random {
             
@@ -53,11 +57,11 @@ class Item: NSObject {
             
             //            let name = "Hello, my name is Mimi and I'm looking for a super long string of text. Haha hey."
             
-            self.init(name: randomName)
+            self.init(called: randomName, with: image!)
         }
             
         else {
-            self.init(name: "")
+            self.init(called: "", with: image!)
         }
     }
     

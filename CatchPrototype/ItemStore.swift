@@ -11,10 +11,14 @@ import UIKit
 // Database for items
 class ItemStore {
     
+    static let sharedInstance = ItemStore()
+    
+    private init() {}
+    
     var allItems = [Item]()
     
-    @discardableResult func createItem() -> Item {
-        let newItem = Item(random: true)
+    @discardableResult func createItem(called name: String, with image: UIImage) -> Item {
+        let newItem = Item(called: name, with: image)
         
         allItems.append(newItem)
         

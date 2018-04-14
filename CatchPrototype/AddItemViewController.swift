@@ -14,6 +14,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     let itemStore = ItemStore.sharedInstance
     var item: Item!
+    var itemImage: UIImage!
     var itemName: String!
     var dateAddedString = "<DATE>"
     var dateLastWornString = "<DATE>"
@@ -222,7 +223,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 10).isActive = true
         buttonsAndTextFieldStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-//        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
@@ -319,7 +319,9 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
                 self.itemName = "New Item"
             }
             
-            self.item = self.itemStore.createItem(called: self.itemName)
+            // TODO: This line is where the user entered info is saved into data model
+            self.item = self.itemStore.createItem(called: self.itemName, with: self.itemImage)
+            
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -364,9 +366,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         // Get image & put on image button
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+//        itemImage = image
         
-        // TODO: resize images properly
+        // Resize images properly
         let resizedImage = resizeImage(image: image)
+        itemImage = resizedImage
         
         imageButton.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
         imageButton.setImage(resizedImage, for: .normal)
@@ -374,6 +378,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         // Dismiss image picker controller
         dismiss(animated: true, completion: nil)
+        
+        
     }
     
     // MARK: Helper methods

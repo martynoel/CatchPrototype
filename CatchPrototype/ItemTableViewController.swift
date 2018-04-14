@@ -33,14 +33,14 @@ class ItemTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = editButtonItem
         
         // Create and set right bar button item to "add"
-        let addItemButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addRandomItem))
+        let addItemButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         self.navigationItem.rightBarButtonItem = addItemButton
     }
     
     @objc func addRandomItem(_ sender: UIBarButtonItem) {
         
         // Create a new item and add it to the store first
-        let newItem = itemStore.createItem()
+        let newItem = itemStore.createItem(called: "New Item", with: UIImage(named: "fadedCatchLogo_frame")!)
         
         // Figure out where that new item is in the store's array of items
         if let index = itemStore.allItems.index(of: newItem) {
@@ -71,6 +71,7 @@ class ItemTableViewController: UITableViewController {
         
         let item = itemStore.allItems[indexPath.row]
         
+        cell.itemImageView.image = item.image
         cell.itemNameLabel?.text = item.name
         cell.dateLastWornLabel?.text = "Last worn: \(item.dateLastWornString)"
         cell.dateLastWornLabel?.textColor = UIColor.darkGray
@@ -86,6 +87,7 @@ class ItemTableViewController: UITableViewController {
             
             // Get item associated with this row and pass it along
             let item = itemStore.allItems[row]
+    
             let destination = ItemDetailViewController()
             destination.item = item // getting the item
             self.navigationController?.pushViewController(destination, animated: true)
