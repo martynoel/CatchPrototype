@@ -89,7 +89,7 @@ class ItemTableViewController: UITableViewController {
             let item = itemStore.allItems[row]
     
             let destination = ItemDetailViewController()
-            destination.item = item // getting the item
+            destination.item = item // getting the item and give it to ItemDetailVC
             self.navigationController?.pushViewController(destination, animated: true)
         }
     }

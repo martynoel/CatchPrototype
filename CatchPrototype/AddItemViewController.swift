@@ -357,7 +357,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
                 self.itemName = "New Item"
             }
             
-            // TODO: This line is where the user entered info is saved into data model
+            // Save user-entered info into data model
             self.item = self.itemStore.createItem(called: self.itemName, with: self.itemImage)
             
             self.navigationController?.popViewController(animated: true)

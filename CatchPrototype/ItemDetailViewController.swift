@@ -405,9 +405,11 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
             else {
                 self.itemName = "New Item"
             }
+            self.item.name = self.itemName
             
-            // TODO: This line is where the user entered info is saved into data model
-            self.item = self.itemStore.createItem(called: self.itemName, with: self.itemImage)
+            // Change user entered info is saved into data model
+            self.item.image = self.itemImage
+            self.item.dateLastWornString = self.dateLastWornString
             
             self.navigationController?.popViewController(animated: true)
         }
@@ -469,6 +471,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
     // Helper method to resize user-picked image to fit image button
     // Resizes to 500px x 500px
     func resizeImage(image: UIImage) -> UIImage {
+        
         UIGraphicsBeginImageContext(CGSize(width: 500, height: 500))
         image.draw(in: CGRect(x: 0, y: 0, width: 500, height: 500))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -479,6 +482,7 @@ class ItemDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
     }
     
     func setUpDateInfo() {
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
