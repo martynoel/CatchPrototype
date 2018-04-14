@@ -340,6 +340,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
             cancelButtonState = 0
             cancelButton.setTitleColor(UIColor(red: 251/255, green: 62/255, blue: 24/255, alpha: 1), for: .normal)
         }
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func saveItem() {
