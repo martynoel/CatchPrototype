@@ -13,8 +13,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     let itemStore = ItemStore.sharedInstance
     var item: Item!
-    var itemImage: UIImage!
-    var itemName: String!
+    var itemImage = UIImage(named: "catchLogo")
+    var itemName = "New Item"
     var dateAddedString = "<DATE>"
     var dateLastWornString = "<DATE>"
     
@@ -350,15 +350,15 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         let saveAction = UIAlertAction(title: "Save", style: .default) { (saveItem) in
             
             // Saving an item
-            if self.nameTextField.text != nil {
-                self.itemName = self.nameTextField.text
+            if self.nameTextField.text != "" {
+                self.itemName = self.nameTextField.text!
             }
             else {
                 self.itemName = "New Item"
             }
             
             // Save user-entered info into data model
-            self.item = self.itemStore.createItem(called: self.itemName, with: self.itemImage)
+            self.item = self.itemStore.createItem(called: self.itemName, with: self.itemImage!)
             
             self.navigationController?.popViewController(animated: true)
         }
