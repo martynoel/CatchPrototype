@@ -32,6 +32,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         let button = UIButton(type: UIButtonType.custom)
         button.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
         button.setImage(itemImage, for: .normal)
+        button.setBackgroundImage(nil, for: .normal)
+        button.imageView?.contentMode = UIViewContentMode.scaleAspectFit
         
         button.addTarget(self, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
         button.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
@@ -172,9 +174,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func setUpImageButton() {
         
-        imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        imageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
+        imageButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
     }
     
     func setUpNameStackView() {
@@ -216,9 +219,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         dateAddedLabel.text = "Date Added: \(dateAddedString)"
         buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
-        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 20).isActive = true
+        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 10).isActive = true
+        buttonsAndTextFieldStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10)
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+//        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
@@ -227,6 +231,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 10).isActive = true
     }
+    
+    // MARK: Action methods
     
     @objc func addPhotoButtonPressed() {
         let alertController = UIAlertController(title: "Choose Photo Source", message: nil, preferredStyle: .actionSheet)
@@ -267,8 +273,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         present(alertController, animated: true, completion: nil)
     }
-    
-    // MARK: Action methods
     
     // Dismisses first responder when user taps anywhere on screen
     @objc func backgroundTapped(_ sender: UITapGestureRecognizer) {
@@ -361,9 +365,28 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         // Get image & put on image button
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        imageButton.setImage(image, for: .normal)
+        // TODO: resize images properly
+        let resizedImage = resizeImage(image: image)
+        
+        imageButton.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
+        imageButton.setImage(resizedImage, for: .normal)
+        imageButton.setBackgroundImage(nil, for: .normal)
         
         // Dismiss image picker controller
         dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Helper methods
+    
+    // Helper method to resize user-picked image to fit image button
+    // Resizes to 500px x 500px
+    func resizeImage(image: UIImage) -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 500, height: 500))
+        image.draw(in: CGRect(x: 0, y: 0, width: 500, height: 500))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return resizedImage!
     }
 }
