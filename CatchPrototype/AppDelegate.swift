@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let itemsController = ItemViewController()
-        let itemStore = ItemStore()
+        let itemsController = ItemTableViewController()
+        let itemStore = ItemStore.sharedInstance
         itemsController.itemStore = itemStore
         
         window?.rootViewController = UINavigationController(rootViewController: itemsController)

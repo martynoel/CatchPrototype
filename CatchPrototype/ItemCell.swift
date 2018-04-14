@@ -35,10 +35,10 @@ class ItemCell: UITableViewCell {
         
         itemImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        itemImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        itemImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        itemImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        itemImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        itemImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 9).isActive = true
+        itemImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 9).isActive = true
+        itemImageView.widthAnchor.constraint(equalToConstant: 73).isActive = true
+        itemImageView.heightAnchor.constraint(equalToConstant: 73).isActive = true
         
         // Item name label
         itemNameLabel = UILabel()

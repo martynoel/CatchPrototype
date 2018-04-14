@@ -226,7 +226,6 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         itemImageView.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
         itemImageView.widthAnchor.constraint(equalToConstant: 350).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        
     }
     
     func setUpNameStackView() {
@@ -234,7 +233,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         nameStackView.addArrangedSubview(nameLabel)
         nameStackView.addArrangedSubview(nameTextField)
         
-        nameStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor, constant: 30).isActive = true
+        nameStackView.topAnchor.constraint(equalTo: itemImageView.bottomAnchor, constant: 20).isActive = true
         nameStackView.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         nameStackView.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: 15).isActive = true
     }
@@ -243,7 +242,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         dateLastWornLabel.text = "Date Last Worn: \(dateLastWornString)"
         
-        dateLastWornLabel.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 30).isActive = true
+        dateLastWornLabel.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 15).isActive = true
         dateLastWornLabel.leadingAnchor.constraint(equalTo: itemImageView.leadingAnchor).isActive = true
     }
     
@@ -258,7 +257,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     func setUpChangePhotoButton() {
         
         changePhotoButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        changePhotoButton.topAnchor.constraint(equalTo: dateAddedLabel.bottomAnchor, constant: 30).isActive = true
+        changePhotoButton.topAnchor.constraint(equalTo: dateAddedLabel.bottomAnchor, constant: 20).isActive = true
         changePhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         changePhotoButton.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
@@ -266,7 +265,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     func setUpCancelButton() {
         
         cancelButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 7).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 5).isActive = true
     }
     
     // MARK: Action methods

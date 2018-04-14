@@ -191,7 +191,6 @@ class ItemDetailViewController: UIViewController {
         
         imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        //        imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
         imageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -20).isActive = true
     }
     
@@ -205,6 +204,7 @@ class ItemDetailViewController: UIViewController {
     }
     
     func setUpButtonAndTextFieldStackView() {
+        
         buttonsAndTextFieldStackView.addArrangedSubview(dateLastWornLabel)
         buttonsAndTextFieldStackView.addArrangedSubview(dateAddedLabel)
         buttonsAndTextFieldStackView.addArrangedSubview(updateDateLastWornButton)
@@ -212,7 +212,7 @@ class ItemDetailViewController: UIViewController {
         
         buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 20).isActive = true
         buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        buttonsAndTextFieldStackView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
     }
     
