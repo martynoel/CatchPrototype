@@ -66,7 +66,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         let label = UILabel()
         label.text = "Name:"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         
         return label
     }()
@@ -81,36 +81,38 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         return textField
     }()
     
-    var nameStackView = UIStackView()
-    
-    let buttonsAndTextFieldStackView: UIStackView = {
+    var nameStackView: UIStackView = {
         
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10.0
+        
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
-    let dateAddedLabel: UILabel = {
+    let dateLastWornLabel: UILabel = {
         
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    let dateLastWornLabel: UILabel = {
+    let dateAddedLabel: UILabel = {
         
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -164,15 +166,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         view.addSubview(scrollView)
         
+        setUpDateInfo()
         setUpScrollView()
-        
-//        view.addSubview(imageButton)
-//        view.addSubview(buttonsAndTextFieldStackView)
-//        view.addSubview(cancelButton)
-//
-//        setUpImageButton()
-//        setUpButtonAndTextFieldStackView()
-//        setUpCancelButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -203,11 +198,17 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     func setUpContentView() {
         
         contentView.addSubview(imageButton)
-        contentView.addSubview(buttonsAndTextFieldStackView)
+        contentView.addSubview(nameStackView)
+        contentView.addSubview(dateLastWornLabel)
+        contentView.addSubview(dateAddedLabel)
+        contentView.addSubview(changePhotoButton)
         contentView.addSubview(cancelButton)
         
         setUpImageButton()
-        setUpButtonAndTextFieldStackView()
+        setUpNameStackView()
+        setUpDateLastWornLabel()
+        setUpDateAddedLabel()
+        setUpChangePhotoButton()
         setUpCancelButton()
         
         contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
@@ -229,61 +230,50 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func setUpImageButton() {
         
-        imageButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
-        imageButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        imageButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        imageButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
         imageButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
         imageButton.heightAnchor.constraint(equalToConstant: 350).isActive = true
     }
     
     func setUpNameStackView() {
-        
-        nameStackView = UIStackView()
-        
-        nameStackView.axis = .horizontal
-        nameStackView.distribution = .fill
-        
-        nameStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         nameStackView.addArrangedSubview(nameLabel)
         nameStackView.addArrangedSubview(nameTextField)
+
+        nameStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 30).isActive = true
+        nameStackView.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        nameStackView.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: 15).isActive = true
     }
-    
-    func setUpDateInfo() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        dateFormatter.locale = Locale(identifier: "en_US")
-        
-        let dateAdded = Date()
-        let dateLastWorn = Date()
-        
-        dateAddedString = dateFormatter.string(from: dateAdded)
-        dateLastWornString = dateFormatter.string(from: dateLastWorn)
-    }
-    
-    func setUpButtonAndTextFieldStackView() {
-        
-        setUpDateInfo()
-        setUpNameStackView()
-        
-        buttonsAndTextFieldStackView.addArrangedSubview(nameStackView)
-        buttonsAndTextFieldStackView.addArrangedSubview(dateLastWornLabel)
-        buttonsAndTextFieldStackView.addArrangedSubview(dateAddedLabel)
-        
+
+    func setUpDateLastWornLabel() {
+
         dateLastWornLabel.text = "Date Last Worn: \(dateLastWornString)"
-        dateAddedLabel.text = "Date Added: \(dateAddedString)"
-        buttonsAndTextFieldStackView.addArrangedSubview(changePhotoButton)
         
-        buttonsAndTextFieldStackView.topAnchor.constraint(equalTo: imageButton.bottomAnchor, constant: 10).isActive = true
-        buttonsAndTextFieldStackView.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: 10)
-        buttonsAndTextFieldStackView.centerXAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        buttonsAndTextFieldStackView.widthAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
+        dateLastWornLabel.topAnchor.constraint(equalTo: nameStackView.bottomAnchor, constant: 30).isActive = true
+        dateLastWornLabel.leadingAnchor.constraint(equalTo: imageButton.leadingAnchor).isActive = true
+    }
+
+    func setUpDateAddedLabel() {
+        
+        dateAddedLabel.text = "Date Added: \(dateAddedString)"
+
+        dateAddedLabel.topAnchor.constraint(equalTo: dateLastWornLabel.bottomAnchor, constant: 10).isActive = true
+        dateAddedLabel.leadingAnchor.constraint(equalTo: dateLastWornLabel.leadingAnchor).isActive = true
     }
     
-    func setUpCancelButton() {
+    func setUpChangePhotoButton() {
         
-        cancelButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        cancelButton.topAnchor.constraint(equalTo: buttonsAndTextFieldStackView.bottomAnchor, constant: 10).isActive = true
+        changePhotoButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        changePhotoButton.topAnchor.constraint(equalTo: dateAddedLabel.bottomAnchor, constant: 30).isActive = true
+        changePhotoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        changePhotoButton.widthAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.widthAnchor, constant: -70).isActive = true
+    }
+
+    func setUpCancelButton() {
+
+        cancelButton.centerXAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        cancelButton.topAnchor.constraint(equalTo: changePhotoButton.bottomAnchor, constant: 7).isActive = true
     }
     
     // MARK: Action methods
@@ -448,5 +438,18 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UINavigation
         UIGraphicsEndImageContext()
         
         return resizedImage!
+    }
+    
+    func setUpDateInfo() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        let dateAdded = Date()
+        let dateLastWorn = Date()
+        
+        dateAddedString = dateFormatter.string(from: dateAdded)
+        dateLastWornString = dateFormatter.string(from: dateLastWorn)
     }
 }
